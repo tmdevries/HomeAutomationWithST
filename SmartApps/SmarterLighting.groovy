@@ -289,7 +289,8 @@ def installed() {
 
 def updated() {
 	log.debug "Updated with settings: ${settings}"
-
+	
+	unschedule()
 	unsubscribe()
 	initialize()
 }
@@ -297,7 +298,7 @@ def updated() {
 def initialize() {
 	if (timeThreshold) {
     	def window = getWindow()
-        if (window.end.get(Calendar.HOUR) < window.start.get(Calendar.HOUR)) state.crossesMidnight = true
+        if (window.end.get(Calendar.HOUR_OF_DAY) < window.start.get(Calendar.HOUR_OF_DAY)) state.crossesMidnight = true
         else state.crossesMidnight = false
     }
 	switch(sensorType) {
